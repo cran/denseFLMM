@@ -9,146 +9,146 @@ denseFLMM(Y, gridpoints = 1:ncol(Y), Zlist = NA, G = NA, Lvec = NA,
   smooth = FALSE, bf = 10, smoothalg = "gamm")
 }
 \arguments{
-\item{Y}{\eqn{n x D} matrix of \eqn{n} curves observed on \eqn{D} grid points. 
+\item{Y}{\eqn{n x D} matrix of \eqn{n} curves observed on \eqn{D} grid points.
 \code{Y} is assumed to be centered by its mean function.}
 
-\item{gridpoints}{vector of grid points along curves, corresponding to columns of \code{Y}. 
+\item{gridpoints}{vector of grid points along curves, corresponding to columns of \code{Y}.
 Defaults to \code{matrix(1, nrow(Y), 1)}.}
 
-\item{Zlist}{list of length \eqn{H} of \eqn{\rho^{U_g}} design matrices 
-\eqn{Z_{\cdot s^{U_g}}}, 
-\eqn{g = 1,\ldots, H}, \eqn{s = 1,\ldots, \rho^{U_g}}. Needed instead of \code{Zvars} and \code{groups} 
-if group-specific functional random effects are present. Defaults to \code{NA}, 
+\item{Zlist}{list of length \eqn{H} of \eqn{\rho^{U_g}} design matrices
+\eqn{Z_{\cdot s^{U_g}}},
+\eqn{g = 1,\ldots, H}, \eqn{s = 1,\ldots, \rho^{U_g}}. Needed instead of \code{Zvars} and \code{groups}
+if group-specific functional random effects are present. Defaults to \code{NA},
 then \code{Zvars} and \code{groups} needed.}
 
-\item{G}{number of grouping factors not used for estimation of error variance. 
+\item{G}{number of grouping factors not used for estimation of error variance.
 Needed if \code{Zlist} is used instead of \code{Zvars} and \code{groups}. Defaults to \code{NA}.}
 
-\item{Lvec}{vector of length \eqn{H} containing the number of levels for each grouping factor. 
+\item{Lvec}{vector of length \eqn{H} containing the number of levels for each grouping factor.
 Needed if \code{Zlist} is used instead of \code{Zvars} and \code{groups}. Defaults to \code{NA}.}
 
-\item{groups}{\eqn{n \times G} matrix with \eqn{G} grouping factors for the rows of \code{Y}, 
-where \eqn{G} denotes the number of random grouping factors not used for the estimation 
-of the error variance. Defaults to \code{groups = matrix(1, nrow(Y), 1)}. Set to \code{NA} when 
+\item{groups}{\eqn{n \times G} matrix with \eqn{G} grouping factors for the rows of \code{Y},
+where \eqn{G} denotes the number of random grouping factors not used for the estimation
+of the error variance. Defaults to \code{groups = matrix(1, nrow(Y), 1)}. Set to \code{NA} when
 \code{Zlist} is used to specify group-specific functional random effects.}
 
 \item{Zvars}{list of length \eqn{G} with \eqn{n \times \rho^{U_g}} matrices of random variables
-for grouping factor \eqn{g}, where \eqn{G} denotes the number of random grouping factors not 
-used for the estimation of the error variance. Random curves for each grouping 
+for grouping factor \eqn{g}, where \eqn{G} denotes the number of random grouping factors not
+used for the estimation of the error variance. Random curves for each grouping
 factor are assumed to be correlated (e.g., random intercept and slope).
 Set to \code{NA} when \code{Zlist} is used to specify group-specific functional random effects.}
 
-\item{L}{pre-specified level of variance explained (between 0 and 1), determines 
+\item{L}{pre-specified level of variance explained (between 0 and 1), determines
 number of functional principal components.}
 
-\item{NPC}{vector of length \eqn{H} with number of functional principal components to 
+\item{NPC}{vector of length \eqn{H} with number of functional principal components to
 keep for each functional random effect. Overrides \code{L} if not \code{NA}. Defaults to \code{NA}.}
 
-\item{smooth}{\code{TRUE} to add smoothing of the covariance matrices, otherwise 
+\item{smooth}{\code{TRUE} to add smoothing of the covariance matrices, otherwise
 covariance matrices are estimated using least-squares. Defaults to \code{FALSE}.}
 
-\item{bf}{number of marginal basis functions used for all smooths. 
+\item{bf}{number of marginal basis functions used for all smooths.
 Defaults to \code{bf = 10}.}
 
-\item{smoothalg}{smoothing algorithm used for covariance smoothing. 
-Available options are \code{"gamm"}, \code{"gamGCV"}, \code{"gamREML"}, \code{"bamGCV"}, 
-\code{"bamREML"}, and \code{"bamfREML"}. \code{"gamm"} uses REML estimation based on function \code{\link{gamm}} in 
-\code{R}-package \code{\link{mgcv}}. \code{"gamGCV"} and \code{"gamREML"} use GCV and REML 
-estimation based on function \code{\link{gam}} in \code{R}-package \code{\link{mgcv}}, respectively. 
-\code{"bamGCV"}, \code{"bamREML"}, and \code{"bamfREML"} use GCV, REML, and a fast REML estimation 
-based on function \code{\link{bam}} in \code{R}-package \code{\link{mgcv}}, respectively. 
+\item{smoothalg}{smoothing algorithm used for covariance smoothing.
+Available options are \code{"gamm"}, \code{"gamGCV"}, \code{"gamREML"}, \code{"bamGCV"},
+\code{"bamREML"}, and \code{"bamfREML"}. \code{"gamm"} uses REML estimation based on function \code{\link{gamm}} in
+\code{R}-package \code{\link{mgcv}}. \code{"gamGCV"} and \code{"gamREML"} use GCV and REML
+estimation based on function \code{\link{gam}} in \code{R}-package \code{\link{mgcv}}, respectively.
+\code{"bamGCV"}, \code{"bamREML"}, and \code{"bamfREML"} use GCV, REML, and a fast REML estimation
+based on function \code{\link{bam}} in \code{R}-package \code{\link{mgcv}}, respectively.
 Defaults to \code{"gamm"}.}
 }
 \value{
-The function returns a list containing the input arguments 
-\code{Y}, \code{gridpoints}, \code{groups}, \code{Zvars}, \code{L}, \code{smooth}, \code{bf}, 
+The function returns a list containing the input arguments
+\code{Y}, \code{gridpoints}, \code{groups}, \code{Zvars}, \code{L}, \code{smooth}, \code{bf},
 and \code{smoothalg}. It additionally contains:
 \itemize{
-\item \code{Zlist}  either the input argument \code{Zlist} or if set to \code{NA}, 
-the computed list of list of design matrices \eqn{Z_{\cdot s}^{U_g}}, 
-\eqn{g=1,\ldots,H}, \eqn{s = 1,\ldots, \rho^{U_g}}. 
-\item \code{G}   either the input argument \code{G} or if set to \code{NA}, 
+\item \code{Zlist}  either the input argument \code{Zlist} or if set to \code{NA},
+the computed list of list of design matrices \eqn{Z_{\cdot s}^{U_g}},
+\eqn{g=1,\ldots,H}, \eqn{s = 1,\ldots, \rho^{U_g}}.
+\item \code{G}   either the input argument \code{G} or if set to \code{NA},
 the computed number of random grouping factors \eqn{G} not used for the estimation of the error variance.
-\item \code{Lvec}  either the input argument \code{Lvec} or if set to \code{NA}, 
-the computed vector of length \eqn{H} containing the number of levels 
-for each grouping factor (including the smooth error(s)). 
-\item \code{NPC}  either the input argument \code{NPC} or if set to \code{NA}, 
+\item \code{Lvec}  either the input argument \code{Lvec} or if set to \code{NA},
+the computed vector of length \eqn{H} containing the number of levels
+for each grouping factor (including the smooth error(s)).
+\item \code{NPC}  either the input argument \code{NPC} or if set to \code{NA},
 the number of functional principal components kept for each functional random effect (including the smooth error(s)).
-\item \code{rhovec} vector of length \eqn{H} of number of random effects for each grouping factor (including the smooth error(s)). 
-\item \code{phi} list of length \eqn{H} of \eqn{D x N^{U_g}} matrices containing 
-the \eqn{N^{U_g}} functional principal components kept per grouping factor (including the smooth error(s)). 
+\item \code{rhovec} vector of length \eqn{H} of number of random effects for each grouping factor (including the smooth error(s)).
+\item \code{phi} list of length \eqn{H} of \eqn{D x N^{U_g}} matrices containing
+the \eqn{N^{U_g}} functional principal components kept per grouping factor (including the smooth error(s)).
 \item \code{sigma2} estimated measurement error variance \eqn{\sigma^2}.
-\item \code{nu} list of length \eqn{H} of \eqn{N^{U_g} x 1} vectors of estimated eigenvalues 
-\eqn{\nu_k^{U_g}}. 
-\item \code{xi} list of length \eqn{H} of \eqn{L^{U_g} x N^{U_g}} matrices containing 
-the predicted random basis weights. Within matrices, basis weights are ordered corresponding 
-to the ordered levels of the grouping factors, e.g., a grouping factor with levels 4, 2, 3, 1 
-(\eqn{L^{U_g} = 4}) will result in rows in \code{xi[[g]]} corresponding to levels 1, 2, 3, 4. 
+\item \code{nu} list of length \eqn{H} of \eqn{N^{U_g} x 1} vectors of estimated eigenvalues
+\eqn{\nu_k^{U_g}}.
+\item \code{xi} list of length \eqn{H} of \eqn{L^{U_g} x N^{U_g}} matrices containing
+the predicted random basis weights. Within matrices, basis weights are ordered corresponding
+to the ordered levels of the grouping factors, e.g., a grouping factor with levels 4, 2, 3, 1
+(\eqn{L^{U_g} = 4}) will result in rows in \code{xi[[g]]} corresponding to levels 1, 2, 3, 4.
 \item \code{totvar} total average variance of the curves.
-\item \code{exvar} level of variance explained by the selected functional principal components (+ error variance). 
+\item \code{exvar} level of variance explained by the selected functional principal components (+ error variance).
 }
 }
 \description{
-Estimation of functional linear mixed models (FLMMs) for functional data 
-sampled on equal grids based on functional principal component analysis. 
+Estimation of functional linear mixed models (FLMMs) for functional data
+sampled on equal grids based on functional principal component analysis.
 The implemented models are special cases of the general FLMM
 \deqn{
 Y_i(t_d) = \mu(t_d,x_i) + z_i^\top U(t_d) + \epsilon_i(t_d),  i = 1,
-\ldots,n, d = 1, \ldots, D,} 
+\ldots,n, d = 1, \ldots, D,}
 with \eqn{Y_i(t_d)} the value of the response of curve \eqn{i} at observation point
 \eqn{t_d}, \eqn{\mu(t_d,x_i)} is a mean function, which may depend on covariates
 \eqn{x_i} and needs to be estimated beforehand. \eqn{z_i} is a covariate
 vector, which is multiplied with the vector of functional random
-effects \eqn{U(t_d)}. 
-Usually, the functional random effects will additionally include a smooth error term which 
-is a functional random intercept with a special structure that captures deviations 
-from the mean which are correlated along the support of the functions. 
-In this case, the last block of \eqn{z_i} corresponds to an indicator vector of 
+effects \eqn{U(t_d)}.
+Usually, the functional random effects will additionally include a smooth error term which
+is a functional random intercept with a special structure that captures deviations
+from the mean which are correlated along the support of the functions.
+In this case, the last block of \eqn{z_i} corresponds to an indicator vector of
 indicators for each curve and the last block in \eqn{U(t)} consists of curve-specific
 functional random effects.
 \eqn{\epsilon_i(t_d)} is independent and identically
 distributed white noise measurement error with homoscedastic,
 constant variance.\cr\cr
-The vector-valued functional random effects can be subdivided into \eqn{H} 
+The vector-valued functional random effects can be subdivided into \eqn{H}
 independent blocks of functional random effects \deqn{U(t_d) = (U_1(t_d)^\top, \ldots,
-U_H(t_d)^\top)^\top,} with \eqn{U_g(t_d)} and \eqn{U_h(t_d)} independent 
+U_H(t_d)^\top)^\top,} with \eqn{U_g(t_d)} and \eqn{U_h(t_d)} independent
 for \eqn{g \neq h}. Each block \eqn{U_h(t_d)} further contains \eqn{L^{U_h}} independent
 copies \eqn{U_{gl}(t_d)}, \eqn{l=1, \ldots, L^{U_h}}, of a vector-valued stochastic process with
-\eqn{\rho^{U_h}} vector components \eqn{U_{gls}(t_d)}, \eqn{s = 1,\ldots, \rho^{U_h}}. 
+\eqn{\rho^{U_h}} vector components \eqn{U_{gls}(t_d)}, \eqn{s = 1,\ldots, \rho^{U_h}}.
 The total number of functional random effects then amounts to \eqn{q = \sum_{h=1}^H L^{U_h}\rho^{U_h}}.
 \cr\cr
-The code implements a very general functional linear mixed model for \eqn{n} 
-curves observed at \eqn{D} grid points. Grid points are assumed to be 
-equidistant and so far no missings are assumed. 
-The curves are assumed to be centered. The functional random effects for each grouping 
-factor are assumed to be correlated (e.g., random intercept and 
-slope curves). The code can handle group-specific functional random 
+The code implements a very general functional linear mixed model for \eqn{n}
+curves observed at \eqn{D} grid points. Grid points are assumed to be
+equidistant and so far no missings are assumed.
+The curves are assumed to be centered. The functional random effects for each grouping
+factor are assumed to be correlated (e.g., random intercept and
+slope curves). The code can handle group-specific functional random
 effects including group-specific smooth errors. Covariates are assumed to be standardized. \cr
 }
 \details{
 The model fit for centered curves \eqn{Y_i(.)} is \deqn{Y = ZU + \epsilon,}
-with \eqn{Y = [Y_i(t_d)]_{i = 1, \ldots, n, d = 1, \ldots, D}}, 
-\eqn{Z} consisting of 
-\eqn{H} blocks \eqn{Z^{U_h}} for \eqn{H} grouping factors, \eqn{Z = [Z^{U_1}|\ldots| Z^{U_H}]}, 
-and each \eqn{Z^{U_h} = [Z_1^{U_h} |\ldots| Z_{\rho^{U_h}}^{U_h}]}. \eqn{U} is row-wise divided 
+with \eqn{Y = [Y_i(t_d)]_{i = 1, \ldots, n, d = 1, \ldots, D}},
+\eqn{Z} consisting of
+\eqn{H} blocks \eqn{Z^{U_h}} for \eqn{H} grouping factors, \eqn{Z = [Z^{U_1}|\ldots| Z^{U_H}]},
+and each \eqn{Z^{U_h} = [Z_1^{U_h} |\ldots| Z_{\rho^{U_h}}^{U_h}]}. \eqn{U} is row-wise divided
 into blocks \eqn{U_1,\ldots, U_H}, corresponding to \eqn{Z}.\cr
-In case no group-specific functional random effects are specified, column \eqn{j} in \eqn{Z_{s}^{U_g}}, \eqn{s=1,\ldots,\rho^{U_g}}, 
-is assumed to be equal to the \eqn{s}th variable (column) in \code{Zvars[[g]]} times an 
+In case no group-specific functional random effects are specified, column \eqn{j} in \eqn{Z_{s}^{U_g}}, \eqn{s=1,\ldots,\rho^{U_g}},
+is assumed to be equal to the \eqn{s}th variable (column) in \code{Zvars[[g]]} times an
 indicator for the \eqn{j}th level of grouping factor \eqn{g}, \eqn{g=1,\ldots,G}. \cr
-Note that \eqn{G} here denotes the number of random grouping factors not used for the estimation 
-of the error variance, i.e., all except the smooth error term(s). 
+Note that \eqn{G} here denotes the number of random grouping factors not used for the estimation
+of the error variance, i.e., all except the smooth error term(s).
 The total number of grouping factors is denoted by \eqn{H}. \cr\cr
-The estimated eigenvectors and eigenvalues are rescaled to ensure that the approximated eigenfunctions are 
+The estimated eigenvectors and eigenvalues are rescaled to ensure that the approximated eigenfunctions are
 orthonormal with respect tot the \eqn{L^2}-inner product.\cr\cr
-The estimation of the error variance takes place in two steps. In case of smoothing (\code{smooth = TRUE}), 
-the error variance is first estimated as the average difference of the raw and the smoothed diagonal values. 
-In case no smoothing is applied, the estimated error variance is zero. 
-Subsequent to the eigen decomposition and selection of the eigenfunctions to keep for each grouping factor, 
-the estimated error variance is recalculated in order to capture the left out variability due to the truncation 
+The estimation of the error variance takes place in two steps. In case of smoothing (\code{smooth = TRUE}),
+the error variance is first estimated as the average difference of the raw and the smoothed diagonal values.
+In case no smoothing is applied, the estimated error variance is zero.
+Subsequent to the eigen decomposition and selection of the eigenfunctions to keep for each grouping factor,
+the estimated error variance is recalculated in order to capture the left out variability due to the truncation
 of the infinite Karhunen-Loeve expansions.
 }
 \examples{
-# fit model with group-specific functional random intercepts for two groups 
+# fit model with group-specific functional random intercepts for two groups
 # and a non group-specific smooth error, i.e., G = 2, H = 1.
 
 ################
@@ -210,7 +210,7 @@ data <- data.frame(class = class, group1 = group1, group2 = group2)
 
 # get eigenfunction evaluations
 ###############################
-phis <- list(sapply(1:NPCs[1], FUN = funB1, t = gridpoints), 
+phis <- list(sapply(1:NPCs[1], FUN = funB1, t = gridpoints),
              sapply(1:NPCs[2], FUN = funB2, t = gridpoints),
              sapply(1:NPCs[3], FUN = funE, t = gridpoints))
 
@@ -230,13 +230,13 @@ B2 <- xis[[2]] \%*\% t(phis[[2]])
 E <- xis[[3]] \%*\% t(phis[[3]])
 
 B1_mat <- B2_mat <- E_mat <- matrix(0, nrow = n, ncol = D)
-B1_mat[group1 == 1 & class == 1, ] <- t(replicate(n =  n / (Lvec[1] * class_nr), 
+B1_mat[group1 == 1 & class == 1, ] <- t(replicate(n =  n / (Lvec[1] * class_nr),
 B1[1, ], simplify = "matrix"))
-B1_mat[group1 == 2 & class == 1, ] <- t(replicate(n =  n / (Lvec[1] * class_nr), 
+B1_mat[group1 == 2 & class == 1, ] <- t(replicate(n =  n / (Lvec[1] * class_nr),
 B1[2, ], simplify = "matrix"))
-B2_mat[group1 == 1 & class == 2, ] <- t(replicate(n =  n / (Lvec[1] * class_nr), 
+B2_mat[group1 == 1 & class == 2, ] <- t(replicate(n =  n / (Lvec[1] * class_nr),
 B2[1, ], simplify = "matrix"))
-B2_mat[group1 == 2 & class == 2, ] <- t(replicate(n =  n / (Lvec[1] * class_nr), 
+B2_mat[group1 == 2 & class == 2, ] <- t(replicate(n =  n / (Lvec[1] * class_nr),
 B2[2, ], simplify = "matrix"))
 E_mat <- E
 
@@ -255,11 +255,11 @@ Zlist <- list()
 Zlist[[1]] <- Zlist[[2]] <- Zlist[[3]] <- list()
 
 d1 <- data.frame(a = as.factor(data$group1[data$class == 1]))
-Zlist[[1]][[1]] <- rBind(sparse.model.matrix(~ -1 + a, d1), 
-  matrix(0, nrow = (1 / class_nr * n), ncol = (Lvec[1]))) 
+Zlist[[1]][[1]] <- rbind(sparse.model.matrix(~ -1 + a, d1),
+  matrix(0, nrow = (1 / class_nr * n), ncol = (Lvec[1])))
 
 d2 <- data.frame(a = as.factor(data$group1[data$class == 2]))
-Zlist[[2]][[1]] <- rBind(matrix(0, nrow = (1 / class_nr * n), 
+Zlist[[2]][[1]] <- rbind(matrix(0, nrow = (1 / class_nr * n),
   ncol = (Lvec[2])), sparse.model.matrix(~ -1 + a, d2))
 
 d3 <- data.frame(a = as.factor(data$group2))
@@ -271,7 +271,7 @@ Zlist[[3]][[1]] <- sparse.model.matrix(~ -1 + a, d3)
 results <- denseFLMM(Y = Y, gridpoints = gridpoints, Zlist = Zlist, G = G, Lvec = Lvec,
                   groups = NA, Zvars = NA, L = 0.99999, NPC = NA,
                   smooth = FALSE)
- 
+
 ###############################
 # plot estimated eigenfunctions
 ###############################
@@ -282,7 +282,7 @@ with(results, matplot(gridpoints, phi[[3]], type = "l"))
 }
 \seealso{
 For the estimation of functional linear mixed models for irregularly
-or sparsely sampled data based on functional principal component analysis, 
+or sparsely sampled data based on functional principal component analysis,
 see function \code{sparseFLMM} in package \code{sparseFLMM}.
 }
 \author{
