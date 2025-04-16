@@ -4,9 +4,20 @@
 \alias{denseFLMM}
 \title{Functional Linear Mixed Models for Densely Sampled Data}
 \usage{
-denseFLMM(Y, gridpoints = 1:ncol(Y), Zlist = NA, G = NA, Lvec = NA,
-  groups = matrix(1, nrow(Y), 1), Zvars, L = NA, NPC = NA,
-  smooth = FALSE, bf = 10, smoothalg = "gamm")
+denseFLMM(
+  Y,
+  gridpoints = 1:ncol(Y),
+  Zlist = NA,
+  G = NA,
+  Lvec = NA,
+  groups = matrix(1, nrow(Y), 1),
+  Zvars,
+  L = NA,
+  NPC = NA,
+  smooth = FALSE,
+  bf = 10,
+  smoothalg = "gamm"
+)
 }
 \arguments{
 \item{Y}{\eqn{n x D} matrix of \eqn{n} curves observed on \eqn{D} grid points.
@@ -52,11 +63,11 @@ Defaults to \code{bf = 10}.}
 
 \item{smoothalg}{smoothing algorithm used for covariance smoothing.
 Available options are \code{"gamm"}, \code{"gamGCV"}, \code{"gamREML"}, \code{"bamGCV"},
-\code{"bamREML"}, and \code{"bamfREML"}. \code{"gamm"} uses REML estimation based on function \code{\link{gamm}} in
-\code{R}-package \code{\link{mgcv}}. \code{"gamGCV"} and \code{"gamREML"} use GCV and REML
-estimation based on function \code{\link{gam}} in \code{R}-package \code{\link{mgcv}}, respectively.
+\code{"bamREML"}, and \code{"bamfREML"}. \code{"gamm"} uses REML estimation based on function \code{\link[mgcv]{gamm}} in
+\code{R}-package \code{\link[mgcv]{mgcv}}. \code{"gamGCV"} and \code{"gamREML"} use GCV and REML
+estimation based on function \code{\link[mgcv]{gam}} in \code{R}-package \code{\link[mgcv]{mgcv}}, respectively.
 \code{"bamGCV"}, \code{"bamREML"}, and \code{"bamfREML"} use GCV, REML, and a fast REML estimation
-based on function \code{\link{bam}} in \code{R}-package \code{\link{mgcv}}, respectively.
+based on function \code{\link[mgcv]{bam}} in \code{R}-package \code{\link[mgcv]{mgcv}}, respectively.
 Defaults to \code{"gamm"}.}
 }
 \value{
@@ -289,4 +300,4 @@ see function \code{sparseFLMM} in package \code{sparseFLMM}.
 Sonja Greven, Jona Cederbaum
 }
 \keyword{FPCA}
-\keyword{models,}
+\keyword{models}

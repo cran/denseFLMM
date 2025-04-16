@@ -68,11 +68,11 @@
 #' Defaults to \code{bf = 10}.
 #' @param smoothalg smoothing algorithm used for covariance smoothing.
 #' Available options are \code{"gamm"}, \code{"gamGCV"}, \code{"gamREML"}, \code{"bamGCV"},
-#' \code{"bamREML"}, and \code{"bamfREML"}. \code{"gamm"} uses REML estimation based on function \code{\link{gamm}} in
-#' \code{R}-package \code{\link{mgcv}}. \code{"gamGCV"} and \code{"gamREML"} use GCV and REML
-#' estimation based on function \code{\link{gam}} in \code{R}-package \code{\link{mgcv}}, respectively.
+#' \code{"bamREML"}, and \code{"bamfREML"}. \code{"gamm"} uses REML estimation based on function \code{\link[mgcv]{gamm}} in
+#' \code{R}-package \code{\link[mgcv]{mgcv}}. \code{"gamGCV"} and \code{"gamREML"} use GCV and REML
+#' estimation based on function \code{\link[mgcv]{gam}} in \code{R}-package \code{\link[mgcv]{mgcv}}, respectively.
 #' \code{"bamGCV"}, \code{"bamREML"}, and \code{"bamfREML"} use GCV, REML, and a fast REML estimation
-#' based on function \code{\link{bam}} in \code{R}-package \code{\link{mgcv}}, respectively.
+#' based on function \code{\link[mgcv]{bam}} in \code{R}-package \code{\link[mgcv]{mgcv}}, respectively.
 #' Defaults to \code{"gamm"}.
 #'
 #' @details The model fit for centered curves \eqn{Y_i(.)} is \deqn{Y = ZU + \epsilon,}
@@ -125,7 +125,7 @@
 #' }
 #' @author Sonja Greven, Jona Cederbaum
 #'
-#' @keywords models, FPCA
+#' @keywords models FPCA
 #'
 #' @examples
 #' # fit model with group-specific functional random intercepts for two groups
@@ -260,10 +260,11 @@
 #' with(results, matplot(gridpoints, phi[[3]], type = "l"))
 #'
 #' @export
-#' @import methods parallel mgcv MASS Matrix
+#' @import methods parallel mgcv MASS Matrix 
 #' @importFrom grDevices terrain.colors
 #' @importFrom stats approx as.formula coef coefficients fitted predict reshape var weights
 #' @importFrom utils packageVersion
+#' @importFrom mvtnorm rmvnorm
 #' @seealso For the estimation of functional linear mixed models for irregularly
 #' or sparsely sampled data based on functional principal component analysis,
 #' see function \code{sparseFLMM} in package \code{sparseFLMM}.
